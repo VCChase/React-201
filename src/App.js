@@ -14,27 +14,6 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  // useEffect(() => {
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       accept: "application/json",
-  //       Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YmIwZTJkMWNhNjgwODI1NmQ4MzM1YzlhZDUzZDRiZCIsIm5iZiI6MTcyMTQ4MTA2OS4zMDc4NjUsInN1YiI6IjY1ZGEwNzBhOWQ4OTM5MDE2MmRhYmUxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jQUSCVBDKvcpsV5C6QH47PNZALVVpl8bs2c30BNUhok"
-  //     }
-  //   };
-
-  //   if (searchText) { 
-  //     fetch(`https://api.themoviedb.org/3/search/movie?query=${searchText}&include_adult=false&language=en-US&page=1`, options)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         setSearchResults(data.results);
-  //       })
-  //   } else {
-  //     setSearchResults([]);
-  //   }
-
-  // }, [searchText]);
-
   return (
     <div>
       <Navbar
