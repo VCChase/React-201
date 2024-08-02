@@ -6,8 +6,6 @@ const FileNotFound = () => {
       <Hero text="404 - Page not found" />
       <h2 className="text-center mt-5">Sorry, no such page exists.</h2>
     </>
-      
-
   );
 }
 
