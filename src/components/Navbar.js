@@ -31,13 +31,19 @@ const Navbar = ({ searchText, setSearchText, setSearchResults, setErrorMsg }) =>
           setErrorMsg(`Sorry, no results can be found for ${searchText}`);
         }
       })
-    
+
+  }
+
+  const handleLink = (e) => {
+    if (e.target.classList.contains("clickLink")) {
+      setSearchText("");
+    }
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary" onClick={handleLink}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand clickLink" to="/">
           Movie Browser
         </Link>
         <button
@@ -54,12 +60,12 @@ const Navbar = ({ searchText, setSearchText, setSearchResults, setErrorMsg }) =>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link className="nav-link active clickLink" aria-current="page" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className="nav-link clickLink" to="/about">
                 About
               </Link>
             </li>

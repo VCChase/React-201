@@ -36,6 +36,13 @@ const MovieView = () => {
         posterPath = "https://i.imgur.com/Xsm7nuB.png";
       }
 
+      const genres = movieDetails.genres.map((item) => {
+        return item.name;
+      });
+
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      const date = new Date(movieDetails.release_date).toLocaleDateString("en-us", options);
+
       return (
         <>
           <Hero text={movieDetails.original_title} backdrop={backdropUrl} />
@@ -49,9 +56,36 @@ const MovieView = () => {
 
               <div className="col-md-9">
                 <h2>{movieDetails.original_title}</h2>
+
                 <p className="lead">
                   {movieDetails.overview}
                 </p>
+
+                {movieDetails.tagline &&
+                  <p className="fs-5">
+                    <span className="fw-semibold">Tagline: </span>
+                    <span className="fw-light">{movieDetails.tagline}</span>
+                  </p>
+                }
+
+                <p className="fs-5">
+                  <span className="fw-semibold">Genres: </span>
+                  <span className="fw-light">{genres.join(", ")}</span>
+                </p>
+
+                <p className="fs-5">
+                  <span className="fw-semibold">Release Date: </span>
+                  <span className="fw-light">{
+                    movieDetails.release_date ? date : "To be announced"  
+                  }</span>
+                </p>
+                
+                {movieDetails.runtime > 0 &&
+                  <p className="fs-5">
+                    <span className="fw-semibold">Runtime: </span>
+                    <span className="fw-light">{movieDetails.runtime} minutes</span>
+                  </p>
+                }
               </div>
             </div>
 
