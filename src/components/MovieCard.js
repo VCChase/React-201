@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const detailUrl = `/movies/${movie.id}`;
+  const posterPath =
+    movie.poster_path === null
+      ? "https://i.imgur.com/Xsm7nuB.png"
+      : `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-  let posterPath;
-  if (movie.poster_path === null) {
-    posterPath = "https://i.imgur.com/Xsm7nuB.png";
-  } else {
-    posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  }
 
   return (
     <div className="col-lg-3 col-md-3 col-2 my-4">

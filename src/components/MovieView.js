@@ -29,19 +29,27 @@ const MovieView = () => {
     if (isLoading) {
       return <Hero text="Loading..." />
     }
+
     if (movieDetails) {
       const backdropUrl = `https://image.tmdb.org/t/p/original${movieDetails.backdrop_path}`;
-      let posterPath = `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
-      if (movieDetails.poster_path === null) {
-        posterPath = "https://i.imgur.com/Xsm7nuB.png";
+      const posterPath =
+        movieDetails.poster_path === null
+          ? "https://i.imgur.com/Xsm7nuB.png"
+          : `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
+
+          
+      let genres;
+      if (movieDetails.genres.length > 0) {
+        genres = movieDetails.genres.map((item) => {
+          return item.name;
+        });
       }
 
-      const genres = movieDetails.genres.map((item) => {
-        return item.name;
-      });
-
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      const date = new Date(movieDetails.release_date).toLocaleDateString("en-us", options);
+      let dateOptions, date;
+      if (movieDetails.release_date) {
+        dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+        date = new Date(movieDetails.release_date).toLocaleDateString("en-us", dateOptions);
+      }
 
       return (
         <>
@@ -61,29 +69,44 @@ const MovieView = () => {
                   {movieDetails.overview}
                 </p>
 
-                {movieDetails.tagline &&
+                {
+                  movieDetails.tagline &&
                   <p className="fs-5">
                     <span className="fw-semibold">Tagline: </span>
                     <span className="fw-light">{movieDetails.tagline}</span>
                   </p>
                 }
 
-                <p className="fs-5">
-                  <span className="fw-semibold">Genres: </span>
-                  <span className="fw-light">{genres.join(", ")}</span>
-                </p>
+                {
+                  genres &&
+                  <p className="fs-5">
+                    <span className="fw-semibold">Genres: </span>
+                    <span className="fw-light">{genres.join(", ")}</span>
+                  </p>
+                }
 
-                <p className="fs-5">
-                  <span className="fw-semibold">Release Date: </span>
-                  <span className="fw-light">{
-                    movieDetails.release_date ? date : "To be announced"  
-                  }</span>
-                </p>
+                {
+                  date &&
+                  <p className="fs-5">
+                    <span className="fw-semibold">Release Date: </span>
+                    <span className="fw-light">{date}</span>
+                  </p>
+                }
                 
-                {movieDetails.runtime > 0 &&
+                {
+                  movieDetails.runtime > 0 &&
                   <p className="fs-5">
                     <span className="fw-semibold">Runtime: </span>
                     <span className="fw-light">{movieDetails.runtime} minutes</span>
+                  </p>
+                }
+                
+                {
+                  movieDetails.imdb_id &&
+                  <p className="fs-5">
+                    <a href={`https://www.imdb.com/title/${movieDetails.imdb_id}`} target="_blank" rel="noreferrer">
+                      More info at IMDB
+                    </a>
                   </p>
                 }
               </div>
