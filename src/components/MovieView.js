@@ -1,4 +1,5 @@
 import Hero from "./Hero";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -6,6 +7,7 @@ const MovieView = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const options = {
@@ -19,11 +21,15 @@ const MovieView = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
       .then(response => response.json())
       .then(data => {
-        setMovieDetails(data);
-        setIsLoading(false);
+        if (data.success === false) {
+          navigate("/*");
+        } else {
+          setMovieDetails(data);
+          setIsLoading(false);
+        }
       })
 
-  }, [id]);
+  }, [id, navigate]);
   
   function renderMovieDetails() {
     if (isLoading) {
